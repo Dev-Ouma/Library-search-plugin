@@ -11,7 +11,7 @@ This guide provides step-by-step instructions for installing, configuring, and m
     ```
 2.  Clone the repository:
     ```bash
-    git clone https://github.com/DevOGee/OUK-Library-search-plugin.git librarysearch
+    git clone https://github.com/Dev-Ouma/OUK-Library-search-plugin.git librarysearch
     ```
 3.  Set the correct permissions:
     ```bash
@@ -31,7 +31,7 @@ This guide provides step-by-step instructions for installing, configuring, and m
 Navigate to **Site administration > Plugins > Blocks > Library Search**.
 
 ### Connection Settings
-*   **Library Base URL**: The main URL of your library system (e.g., `https://library.ouk.ac.ke`).
+*   **Library Base URL**: The main URL of your library system (e.g., `https://library.example.edu`).
 *   **Search Path**: The query path (e.g., `/search?q=` or `/cgi-bin/koha/opac-search.pl?q=`).
 
 ### SSO Setup (Optional)

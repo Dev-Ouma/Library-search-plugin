@@ -1,42 +1,70 @@
 # Library Search Block for Moodle
 
-A premium, production-ready Moodle dashboard block that integrates your University Library search directly into the LMS.
+![Moodle 4.1+](https://img.shields.io/badge/Moodle-4.1%2B-F98012?logo=moodle&logoColor=white)
+![License: GPL v3](https://img.shields.io/badge/license-GPL%20v3-blue)
+![Release 1.0.0](https://img.shields.io/badge/release-1.0.0-green)
 
-## 🌟 Features
+A Moodle dashboard block that puts your institution's library search inside the LMS. Students search books, journals and theses without leaving Moodle, and results open in your library system (EBSCO, Koha, DSpace or any search URL).
 
-*   **Integrated Search**: Search books, journals, theses, and library resources from Moodle.
-*   **OUK Aesthetics**: Styled with Open University of Kenya brand colors (Teal & Gold).
-*   **SSO Ready**: Supports optional HMAC-signed token or Email passthrough for seamless library access.
-*   **Configurable**: Admins can customize search URLs, placeholder text, and enable/disable quick links.
-*   **Responsive**: Works beautifully on mobile and desktop.
-*   **Moodle 4.x Compatible**: Built for Moodle 4.1, 4.3+, and beyond.
+## Features
 
-## 🚀 Quick Start
+- **Integrated search** from any Moodle page or dashboard.
+- **Configurable library URL and search path**, so it works with any catalogue that accepts a query string.
+- **Optional single sign-on** to the library: HMAC-signed token or email passthrough.
+- **Quick links** to e-books, journals, repository and OPAC, which admins can switch on or off.
+- **Customisable** block title and placeholder text.
+- **Responsive**, using Moodle's Boost theme and AMD modules.
+- **Privacy API** provider included.
 
-1.  **Clone the repository** to your Moodle's `blocks` directory:
-    ```bash
-    cd /path/to/moodle/blocks
-    git clone https://github.com/DevOGee/OUK-Library-search-plugin.git librarysearch
-    ```
-2.  **Install the plugin**: Log in to Moodle as an administrator and go to **Site administration > Notifications**.
-3.  **Configure settings**: Go to **Site administration > Plugins > Blocks > Library Search**.
-4.  **Add the block**: Go to your Dashboard, turn "Edit mode" on, and add the "Library Search" block.
+## Requirements
 
-## 🔧 SSO Integration
+- Moodle 4.1 or later
+- A library system with a search URL that accepts a query parameter
 
-The plugin supports several SSO methods:
-*   **None**: Public search results only.
-*   **HMAC Token**: Sends a base64 encoded string containing `email|timestamp|hash`. The hash is generated using a shared secret.
-*   **Email**: Sends the user's email address (useful for internal/trusted environments).
+## Installation
 
-For custom library systems (like Koha or DSpace), we recommend the **HMAC Token** method.
+```bash
+cd /path/to/moodle/blocks
+git clone https://github.com/Dev-Ouma/OUK-Library-search-plugin.git librarysearch
+chown -R www-data:www-data librarysearch
+```
 
-## 🛠️ Developer Information
+Then log in as an administrator and open **Site administration > Notifications** to finish the install. See [INSTALL.md](INSTALL.md) for the manual-upload route, upgrades and troubleshooting.
 
-*   **Component**: `block_librarysearch`
-*   **Framework**: Moodle AMD, Mustache templates, Boost/Bootstrap 4/5.
-*   **Styles**: Vanilla CSS with OUK design system.
+The folder name must be exactly `librarysearch`.
 
----
+## Configuration
 
-© 2025 Open University of Kenya. Built for excellence.
+Go to **Site administration > Plugins > Blocks > Library Search**.
+
+| Setting | Purpose |
+|---|---|
+| Library base URL | Main URL of your library search page |
+| Search path | Query string appended to the base URL, for example `?q=` |
+| Open in new tab | Open results in a new browser tab |
+| Quick links | Show or hide the quick-link buttons |
+| Block title / placeholder | Customise visible text |
+| SSO | Enable single sign-on and choose the method |
+
+## Single sign-on
+
+SSO is optional and off by default. Methods in the settings page:
+
+- **HMAC token**: sends a base64 string containing `email|timestamp|hash`. The hash uses a shared secret. Recommended for Koha, DSpace and other custom systems.
+- **Email**: sends the user's email address. Use only in trusted, internal setups.
+
+The settings page also lists JWT, OAuth 2 and CAS entries. Treat those as work in progress and test them in your own environment before relying on them.
+
+Always use a long random shared secret (32 characters or more) and keep it only in the plugin settings, never in code.
+
+## Development
+
+- Component: `block_librarysearch`
+- Stack: PHP, Moodle AMD (`amd/src/search.js`), Mustache templates
+- Rebuild the minified JavaScript with Moodle's Grunt: `npx grunt amd`
+
+Issues and pull requests are welcome.
+
+## License
+
+Released under the [GNU GPL v3 or later](LICENSE), the same licence as Moodle.
